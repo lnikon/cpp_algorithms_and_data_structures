@@ -78,7 +78,6 @@ dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
     m_capacity = source.m_capacity;
     m_size = source.m_size;
     
-    // delete []m_buffer;
     m_buffer = new T[m_capacity];
     for(std::size_t i = 0; i < source.m_size; i++)
     {
@@ -94,16 +93,11 @@ dynamic_array<T>& dynamic_array<T>::operator=(const dynamic_array& source)
        return *this;
    }
 
-   delete []m_buffer;
+   dynamic_array tmp(source);
 
-   m_capacity = source.m_capacity;
-   m_size = source.m_size;
-
-   m_buffer = new T[m_capacity];
-   for(std::size_t i = 0; i < source.m_size; i++)
-   {
-       m_buffer[i] = source.m_buffer[i];
-   }
+   std::swap(m_size, tmp.m_size);
+   std::swap(m_capacity, tmp.m_capacity);
+   std::swap(m_buffer, tmp.m_buffer);
 
    return *this;
 }
