@@ -72,10 +72,12 @@ void SinglyList<T>::push_front(T value)
     {
         push_back(value);
     }
-
-    auto new_head = make_unique_ptr_to_node(value);
-    new_head->next = std::move(head);
-    head = std::move(new_head);
+    else
+    {
+        auto new_head = make_unique_ptr_to_node(value);
+        new_head->next = std::move(head);
+        head = std::move(new_head);
+    }
 }
 
 template<class T>
