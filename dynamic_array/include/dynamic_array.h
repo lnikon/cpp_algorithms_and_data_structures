@@ -20,13 +20,10 @@ class dynamic_array final
         /* Ctor with capacity specified */
         explicit dynamic_array(const std::size_t& capacity);
 
-        /* Copy ctor (value copy or reference copy ???) */
+        /* Copy ctor */
         dynamic_array(const dynamic_array& source);
 
-        /* Copy-assignment operator(value copy or reference copy ???) */
-        /* Use swap technique 
-         * (see standard C.60)
-         */
+        /* Copy-assignment operator */
         dynamic_array& operator=(const dynamic_array& source);
 
         /* Move ctor */
