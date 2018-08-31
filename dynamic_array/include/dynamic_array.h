@@ -56,7 +56,7 @@ class dynamic_array final
         std::size_t m_capacity{0};
 
         /*
-         * Utility functions
+         * Taken from "Princeton. Algorithms, Part 1" course
          */
         void resize(std::size_t new_size);
 };
@@ -79,10 +79,7 @@ dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
     m_size = source.m_size;
     
     m_buffer = new T[m_capacity];
-    for(std::size_t i = 0; i < source.m_size; i++)
-    {
-        m_buffer[i] = source.m_buffer[i];
-    }
+    std::copy(m_buffer, m_buffer + m_size, source.m_buffer);
 }
 
 template <class T>
@@ -132,5 +129,5 @@ std::size_t dynamic_array<T>::capacity() const
     template <class T>
 void dynamic_array<T>::resize(std::size_t new_size)
 {
-
+    
 }
