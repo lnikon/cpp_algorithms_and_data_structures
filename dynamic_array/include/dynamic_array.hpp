@@ -68,7 +68,13 @@ class dynamic_array final
  */
 template <class T>
 dynamic_array<T>::dynamic_array()
-{ }
+    :m_size{0}, m_buffer{new T[m_size]}
+{
+    for(std::size_t i = 0; i < m_size; i++)
+    {
+        m_buffer[i] = i;
+    }
+}
 
 template <class T>
 dynamic_array<T>::dynamic_array(const std::size_t& capacity)
@@ -77,35 +83,33 @@ dynamic_array<T>::dynamic_array(const std::size_t& capacity)
 
 template <class T>
 dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
+    : m_size{source.m_size}, 
+    m_capacity{m_capacity},
+    m_buffer{new T[m_size]}
 {
-    m_capacity = source.m_capacity;
-    m_size = source.m_size;
-    
-    // assigning newly created 'gsl::owner<>' to non-owner 'T *' ???
-    m_buffer = new T[m_capacity];
-    std::copy(m_buffer, m_buffer + m_size, source.m_buffer);
+    std::copy(source.m_buffer, source.m_buffer + source.m_size, m_buffer);
 }
 
-template <class T>
+    template <class T>
 dynamic_array<T>& dynamic_array<T>::operator=(const dynamic_array& source)
 {
-   if(this == &source) 
-   {
-       return *this;
-   }
+    if(this == &source) 
+    {
+        return *this;
+    }
 
-   dynamic_array tmp(source);
+    dynamic_array tmp(source);
 
-   std::swap(m_size, tmp.m_size);
-   std::swap(m_capacity, tmp.m_capacity);
-   std::swap(m_buffer, tmp.m_buffer);
+    std::swap(m_size, tmp.m_size);
+    std::swap(m_capacity, tmp.m_capacity);
+    std::swap(m_buffer, tmp.m_buffer);
 
-   return *this;
+    return *this;
 }
 
 template <class T>
 dynamic_array<T>::dynamic_array(dynamic_array&& source) noexcept
-    : m_size{0}, m_capacity{0}, m_buffer{nullptr}
+: m_size{0}, m_capacity{0}, m_buffer{nullptr}
 {   
     source.swap(*this);
 }
@@ -134,7 +138,7 @@ std::size_t dynamic_array<T>::capacity() const
  * Privte members listed
  */
 
-template <class T>
+    template <class T>
 void dynamic_array<T>::resize(std::size_t new_size)
 {
     new_size = 0;
