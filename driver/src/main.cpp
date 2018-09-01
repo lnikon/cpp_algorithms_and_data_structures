@@ -10,6 +10,10 @@ int main() {
 
     dynamic_array<std::string> da2(std::move(da1));
 
+    dynamic_array<std::string> da3(da2);
+
+    da2.print_buffer_address_size_capacity();
+    da3.print_buffer_address_size_capacity();
     
     return 0;
 }

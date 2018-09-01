@@ -84,9 +84,9 @@ dynamic_array<T>::dynamic_array(const std::size_t& capacity)
 template <class T>
 dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
     : m_size{source.m_size}, 
-    m_capacity{m_capacity},
-    m_buffer{new T[m_size]}
+    m_capacity{source.m_capacity}
 {
+    m_buffer = new T[m_capacity];
     std::copy(source.m_buffer, source.m_buffer + source.m_size, m_buffer);
 }
 
@@ -99,11 +99,7 @@ dynamic_array<T>& dynamic_array<T>::operator=(const dynamic_array& source)
     }
 
     dynamic_array tmp(source);
-
-    std::swap(m_size, tmp.m_size);
-    std::swap(m_capacity, tmp.m_capacity);
-    std::swap(m_buffer, tmp.m_buffer);
-
+    swap(*this, source);
     return *this;
 }
 
@@ -138,7 +134,7 @@ std::size_t dynamic_array<T>::capacity() const
  * Privte members listed
  */
 
-    template <class T>
+template <class T>
 void dynamic_array<T>::resize(std::size_t new_size)
 {
     new_size = 0;
