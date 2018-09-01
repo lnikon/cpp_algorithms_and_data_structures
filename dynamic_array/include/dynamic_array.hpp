@@ -27,10 +27,10 @@ class dynamic_array final
         dynamic_array& operator=(const dynamic_array& source);
 
         /* Move ctor */
-        dynamic_array(dynamic_array&& source);
+        dynamic_array(dynamic_array&& source) noexcept;
 
         /* Move-assignment operator */
-        dynamic_array&& operator=(dynamic_array&& source);
+        dynamic_array& operator=(dynamic_array&& source) noexcept;
 
         /* Getters */
         std::size_t size() const;
@@ -56,6 +56,7 @@ class dynamic_array final
          * Taken from "Princeton. Algorithms, Part 1" course
          */
         void resize(std::size_t new_size);
+        void swap(dynamic_array& other) noexcept;
 };
 /*
  * Public members listed 
@@ -75,6 +76,7 @@ dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
     m_capacity = source.m_capacity;
     m_size = source.m_size;
     
+    // assigning newly created 'gsl::owner<>' to non-owner 'T *' ???
     m_buffer = new T[m_capacity];
     std::copy(m_buffer, m_buffer + m_size, source.m_buffer);
 }
@@ -97,15 +99,18 @@ dynamic_array<T>& dynamic_array<T>::operator=(const dynamic_array& source)
 }
 
 template <class T>
-dynamic_array<T>::dynamic_array(dynamic_array&& source)
-{
-
+dynamic_array<T>::dynamic_array(dynamic_array&& source) noexcept
+    : m_size{0}, m_capacity{0}, m_buffer{nullptr}
+{   
+    source.swap(*this);
 }
 
-    template <class T>
-dynamic_array<T>&& dynamic_array<T>::operator=(dynamic_array&& source)
+template <class T>
+dynamic_array<T>& dynamic_array<T>::operator=(dynamic_array&& source) noexcept
 {
+    source.swap(*this);
 
+    return *this;
 }
 
 template <class T>
@@ -123,8 +128,18 @@ std::size_t dynamic_array<T>::capacity() const
 /* 
  * Privte members listed
  */
-    template <class T>
+
+template <class T>
 void dynamic_array<T>::resize(std::size_t new_size)
 {
-    
+    new_size = 0;
+}
+
+template <class T>
+void dynamic_array<T>::swap(dynamic_array& other) noexcept
+{
+    using std::swap;
+    swap(m_size, other.m_size);
+    swap(m_capacity, other.m_capacity);
+    swap(m_buffer, other.m_buffer);
 }

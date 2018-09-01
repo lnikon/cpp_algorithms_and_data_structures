@@ -5,8 +5,11 @@
 #include "singly_linked_list.hpp"
 
 int main() {
-    SinglyList<std::string> string_list;
-    string_list.push_front("Hello");
-    string_list.traverse();
+    std::size_t cap1 = 12;
+    dynamic_array<std::string> da1(cap1);
+
+    dynamic_array<std::string> da2(std::move(da1));
+
+    
     return 0;
 }
