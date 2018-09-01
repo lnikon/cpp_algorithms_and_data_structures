@@ -57,6 +57,11 @@ class dynamic_array final
          */
         void resize(std::size_t new_size);
         void swap(dynamic_array& other) noexcept;
+
+        friend void swap(dynamic_array& source, dynamic_array& dest)
+        {
+            source.swap(dest);
+        }
 };
 /*
  * Public members listed 
