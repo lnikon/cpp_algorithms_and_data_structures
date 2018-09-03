@@ -6,7 +6,7 @@
 
 void someFuncFromStack() 
 {
-    SinglyList<std::string> list;
+    singly_linked_list<std::string> list;
     list.push_back(std::string("Hello"));
     list.push_back(std::string(" world"));
     list.push_back(std::string("!"));
