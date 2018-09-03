@@ -41,11 +41,7 @@ class dynamic_array final
          * class internal state debugging.
          * Should be removed, after when development is finished
          */
-        void print_buffer_address_size_capacity() const
-        {
-            std::cout << "\n[" << m_buffer << " " << m_size << " " << m_capacity << "]\n";
-
-        }
+        void print_buffer_address_size_capacity() const;
 
     private:
         T *m_buffer{nullptr};
@@ -66,7 +62,7 @@ class dynamic_array final
 /*
  * Public members listed 
  */
-template <class T>
+    template <class T>
 dynamic_array<T>::dynamic_array()
     :m_size{0}, m_buffer{new T[m_size]}
 {
@@ -76,12 +72,12 @@ dynamic_array<T>::dynamic_array()
     }
 }
 
-template <class T>
+    template <class T>
 dynamic_array<T>::dynamic_array(const std::size_t& capacity)
     : m_buffer{new T[capacity]}, m_capacity{capacity}
 { }
 
-template <class T>
+    template <class T>
 dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
     : m_size{source.m_size}, 
     m_capacity{source.m_capacity}
@@ -128,6 +124,14 @@ template <class T>
 std::size_t dynamic_array<T>::capacity() const
 {
     return m_capacity;
+}
+
+template <class T>
+void dynamic_array<T>::print_buffer_address_size_capacity() const
+{
+    std::cout << "\n[" << "buffer pointer: " << m_buffer << 
+        "\n" << "array size: " << m_size << 
+        "\n" << "array capacity: " << m_capacity << "]\n";
 }
 
 /* 
