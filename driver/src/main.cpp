@@ -3,6 +3,7 @@
 
 #include "dynamic_array.hpp"
 #include "singly_linked_list.hpp"
+#include "stack.hpp"
 
 int main() {
     std::size_t cap1 = 12;
@@ -15,5 +16,6 @@ int main() {
     da2.print_buffer_address_size_capacity();
     da3.print_buffer_address_size_capacity();
     
+    someFuncFromStack();
     return 0;
 }

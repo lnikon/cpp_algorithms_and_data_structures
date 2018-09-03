@@ -4,4 +4,5 @@ project(my_stl)
 add_subdirectory(driver)
 add_subdirectory(singly_linked_list)
 add_subdirectory(dynamic_array)
+add_subdirectory(stack)
 

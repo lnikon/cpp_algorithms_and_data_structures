@@ -59,6 +59,7 @@ class dynamic_array final
             source.swap(dest);
         }
 };
+
 /*
  * Public members listed 
  */
@@ -138,7 +139,7 @@ void dynamic_array<T>::print_buffer_address_size_capacity() const
  * Privte members listed
  */
 
-template <class T>
+    template <class T>
 void dynamic_array<T>::resize(std::size_t new_size)
 {
     new_size = 0;
