@@ -16,6 +16,5 @@ int main() {
     da2.print_buffer_address_size_capacity();
     da3.print_buffer_address_size_capacity();
     
-    someFuncFromStack();
     return 0;
 }
