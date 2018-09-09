@@ -171,7 +171,6 @@ void dynamic_array<T>::insert(std::size_t pos, const T& value)
         increase_capacity_by(factor);
     }
 
-
     m_buffer[pos] = value;
     ++m_size;
 }
