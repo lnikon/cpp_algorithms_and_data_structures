@@ -43,6 +43,7 @@ class dynamic_array final
         /* Getters */
         std::size_t size() const;
         std::size_t capacity() const;
+        std::size_t default_capacity() const;
 
         /*
          * Utility functions for
@@ -54,13 +55,12 @@ class dynamic_array final
         bool full() const;
 
     private:
-        T *m_buffer{nullptr};
+        static const std::size_t m_default_capacity = 4;
+        
         std::size_t m_size{0};
-        std::size_t m_capacity{0};
+        std::size_t m_capacity{m_default_capacity};
+        T *m_buffer{nullptr};
 
-        /*
-         * Taken from "Princeton. Algorithms, Part 1" course
-         */
         bool need_resize(std::size_t pos) const;
         void increase_capacity_by(std::size_t factor);
         void shift_right_by(std::size_t factor);
@@ -78,12 +78,8 @@ class dynamic_array final
  */
     template <class T>
 dynamic_array<T>::dynamic_array()
-    :m_size{0}, m_buffer{new T[m_size]}
+    :m_size{0}, m_buffer{new T[m_default_capacity]}
 {
-    for(std::size_t i = 0; i < m_size; i++)
-    {
-        m_buffer[i] = i;
-    }
 }
 
     template <class T>
@@ -190,6 +186,12 @@ template <class T>
 std::size_t dynamic_array<T>::capacity() const
 {
     return m_capacity;
+}
+
+template <class T>
+std::size_t dynamic_array<T>::default_capacity() const
+{
+    return m_default_capacity;
 }
 
 template <class T>
