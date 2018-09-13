@@ -2,19 +2,16 @@
 #include <string>
 
 #include "dynamic_array.hpp"
-#include "singly_linked_list.hpp"
-#include "stack.hpp"
 
 int main() {
-    std::size_t cap1 = 12;
-    dynamic_array<std::string> da1(cap1);
+    dynamic_array<int> da1;
+    da1.push_back(4);
+    da1.push_back(5);
+    da1.push_back(6);
+    da1.push_back(7);
+    da1.push_back(8);
 
-    dynamic_array<std::string> da2(std::move(da1));
-
-    dynamic_array<std::string> da3(da2);
-
-    da2.print_buffer_address_size_capacity();
-    da3.print_buffer_address_size_capacity();
+    //std::cout << std::boolalpha << (da1.size() == da1.capacity()) << std::endl;
     
     return 0;
 }

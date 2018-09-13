@@ -127,7 +127,7 @@ dynamic_array<T>& dynamic_array<T>::operator=(dynamic_array&& source) noexcept
     template <class T>
 void dynamic_array<T>::push_back(const T& value)
 {
-    insert(m_size + 1, value);
+    insert(m_size, value);
 }
 
 template <class T>
