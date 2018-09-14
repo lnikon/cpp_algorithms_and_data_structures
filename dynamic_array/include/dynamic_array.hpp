@@ -3,13 +3,6 @@
 #include <iostream>
 #include <cctype>
 
-/* TODO LIST
- * * Add @default_size
- * * Add @defailt_capacity 
- * * Invent correct logic for them 
- * Thanks! :)
- */
-
 template <class T>
 class dynamic_array final
 {
