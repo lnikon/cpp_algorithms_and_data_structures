@@ -153,6 +153,99 @@ TEST_F(dynamic_array_test, test_push_back_7)
     EXPECT_EQ(darr_string.size(), 2);
 }
 
+TEST_F(dynamic_array_test, test_pop_front_1)
+{
+    darr_string.push_back("Hello");
+    darr_string.push_back(" world!");
+
+    EXPECT_EQ(darr_string.pop_front(), "Hello");
+}
+
+TEST_F(dynamic_array_test, test_pop_front_2)
+{
+    darr_string.push_back("Hello");
+    darr_string.push_back(" world!");
+
+    darr_string.pop_front();
+
+    EXPECT_EQ(darr_string.size(), 1);
+}
+
+TEST_F(dynamic_array_test, test_pop_front_3)
+{
+    darr_string.push_back("Hello");
+    darr_string.push_back(" world!");
+
+    darr_string.pop_front();
+
+    EXPECT_EQ(darr_string.size(), 1);
+}
+
+TEST_F(dynamic_array_test, test_push_front_1)
+{
+    darr_int.push_front(3);
+    
+    EXPECT_EQ(darr_int.pop_front(), 3);
+}
+
+TEST_F(dynamic_array_test, test_push_front_2)
+{
+    darr_int.push_front(3);
+    
+    EXPECT_EQ(darr_int.pop_back(), 3);
+}
+
+TEST_F(dynamic_array_test, test_push_front_3)
+{
+    darr_int.push_front(3);
+    darr_int.push_front(3);
+
+    darr_int.pop_back();
+    
+    EXPECT_EQ(darr_int.size(), 1);
+}
+
+TEST_F(dynamic_array_test, test_pop_front_4)
+{
+    darr_int.push_back(3);
+    darr_int.push_back(3);
+
+    darr_int.pop_front();
+    
+    EXPECT_EQ(darr_int.size(), 1);
+}
+
+TEST_F(dynamic_array_test, test_pop_front_5)
+{
+    darr_int.push_back(3);
+    darr_int.push_back(9);
+    darr_int.push_back(-1);
+
+    
+    EXPECT_EQ(darr_int.pop_front(), 3);
+}
+
+TEST_F(dynamic_array_test, test_pop_front_6)
+{
+    darr_int.push_back(3);
+    darr_int.push_back(9);
+    darr_int.push_back(-1);
+
+    darr_int.pop_front();
+    EXPECT_EQ(darr_int.pop_front(), 9);
+}
+
+TEST_F(dynamic_array_test, test_pop_front_7)
+{
+    darr_int.push_back(3);
+    darr_int.push_back(9);
+    darr_int.push_back(-1);
+
+    darr_int.pop_front();
+    darr_int.pop_front();
+    EXPECT_EQ(darr_int.size(), 1);
+}
+
 TEST_F(dynamic_array_test, test_resize_1)
 {
     darr_int.push_back(5);

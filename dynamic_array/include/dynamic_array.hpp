@@ -51,6 +51,7 @@ class dynamic_array final
          * Should be removed, after when development is finished
          */
         void print_buffer_address_size_capacity() const;
+        void print_internal_buffer() const;
         bool empty() const;
         bool full() const;
 
@@ -79,8 +80,7 @@ class dynamic_array final
     template <class T>
 dynamic_array<T>::dynamic_array()
     :m_size{0}, m_buffer{new T[m_default_capacity]}
-{
-}
+{ }
 
     template <class T>
 dynamic_array<T>::dynamic_array(const std::size_t& capacity)
@@ -89,8 +89,7 @@ dynamic_array<T>::dynamic_array(const std::size_t& capacity)
 
     template <class T>
 dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
-    : m_size{source.m_size}, 
-    m_capacity{source.m_capacity}
+    : m_size{source.m_size}, m_capacity{source.m_capacity}
 {
     m_buffer = new T[m_capacity];
     std::copy(source.m_buffer, source.m_buffer + source.m_size, m_buffer);
@@ -133,7 +132,7 @@ void dynamic_array<T>::push_back(const T& value)
 template <class T>
 T dynamic_array<T>::pop_back()
 {
-    T back_value = m_buffer[m_size];
+    T back_value = m_buffer[m_size - 1];
     m_buffer[m_size] = T();
     --m_size;
     return back_value;
@@ -151,7 +150,6 @@ T dynamic_array<T>::pop_front()
 {
     T front_value = m_buffer[0];
     shift_left_by(1);
-    --m_size;
     return front_value;
 }
 
@@ -200,6 +198,17 @@ void dynamic_array<T>::print_buffer_address_size_capacity() const
         "\n" << "array size: " << m_size << 
         "\n" << "array capacity: " << m_capacity << "]\n";
 }
+
+template <class T>
+void dynamic_array<T>::print_internal_buffer() const
+{
+    for(std::size_t i = 0; i < m_size; i++)
+    {
+        std::cout << m_buffer[i] << ' ';
+    }
+    std::cout << '\n';
+}
+
 template <class T>
 bool dynamic_array<T>::empty() const
 {
@@ -248,13 +257,16 @@ void dynamic_array<T>::shift_right_by(std::size_t factor)
         // For future, raise an exception
         return;
     }
-
-    for(std::size_t i = 0; i < m_size; i++)
+    std::size_t i;
+    for(i = 0; i < m_size; i++)
     {
         m_buffer[m_size + i + factor] = m_buffer[m_size + i];
     }
 
-    m_size += factor;
+    if(i == m_size - 1)
+    {
+        m_size += factor;
+    }
 }
 
     template <class T>
