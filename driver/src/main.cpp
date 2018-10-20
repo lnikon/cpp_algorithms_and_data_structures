@@ -5,15 +5,25 @@
 
 int main() {
     dynamic_array<int> da1;
-    da1.push_front(3);
 
-    da1.print_internal_buffer();
+    std::size_t sz = 2048;
+    for(std::size_t i = 0; i < sz; i++)
+    {
+        da1.push_back(i);
+    }
 
-    auto val = da1.pop_back();
+    for(std::size_t i = 0; i < sz; i++)
+    {
+        std::cout << da1.pop_back() << ' ';
+    }
+    std::cout << '\n';
 
-    da1.print_internal_buffer();
 
-    //std::cout << std::boolalpha << (da1.size() == da1.capacity()) << std::endl;
+//    da1.print_internal_buffer();
+
+//    auto val = da1.pop_back();
+//
+//    da1.print_internal_buffer();
     
     return 0;
 }

@@ -28,8 +28,6 @@ class dynamic_array final
         /* Main logic */
         void push_back(const T& value);
         T pop_back();
-        void push_front(const T& value);
-        T pop_front();
 
         void insert(std::size_t pos, const T& value);
 
@@ -70,17 +68,17 @@ class dynamic_array final
 /*
  * Public members listed 
  */
-    template <class T>
+ template <class T>
 dynamic_array<T>::dynamic_array()
     :m_size{0}, m_buffer{new T[m_default_capacity]}
 { }
 
-    template <class T>
+template <class T>
 dynamic_array<T>::dynamic_array(const std::size_t& capacity)
     : m_buffer{new T[capacity]}, m_capacity{capacity}
 { }
 
-    template <class T>
+template <class T>
 dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
     : m_size{source.m_size}, m_capacity{source.m_capacity}
 {
@@ -88,7 +86,7 @@ dynamic_array<T>::dynamic_array(const dynamic_array<T>& source)
     std::copy(source.m_buffer, source.m_buffer + source.m_size, m_buffer);
 }
 
-    template <class T>
+template <class T>
 dynamic_array<T>& dynamic_array<T>::operator=(const dynamic_array& source)
 {
     if(this == &source) 
@@ -116,7 +114,7 @@ dynamic_array<T>& dynamic_array<T>::operator=(dynamic_array&& source) noexcept
     return *this;
 }
 
-    template <class T>
+template <class T>
 void dynamic_array<T>::push_back(const T& value)
 {
     insert(m_size, value);
@@ -131,22 +129,7 @@ T dynamic_array<T>::pop_back()
     return back_value;
 }
 
-    template <class T>
-void dynamic_array<T>::push_front(const T& value)
-{
-    shift_right_by(1);
-    insert(0, value);
-}
-
 template <class T>
-T dynamic_array<T>::pop_front()
-{
-    T front_value = m_buffer[0];
-    shift_left_by(1);
-    return front_value;
-}
-
-    template <class T>
 void dynamic_array<T>::insert(std::size_t pos, const T& value)
 {
     /* Basic checks */
@@ -224,7 +207,7 @@ bool dynamic_array<T>::need_resize(std::size_t pos) const
     return pos >= m_capacity || m_size == m_capacity;
 }
 
-    template <class T>
+template <class T>
 void dynamic_array<T>::increase_capacity_by(std::size_t factor)
 {
     if(factor <= 1)
@@ -242,38 +225,38 @@ void dynamic_array<T>::increase_capacity_by(std::size_t factor)
     m_capacity = new_capacity;
 }
 
-    template <class T>
-void dynamic_array<T>::shift_right_by(std::size_t factor)
-{
-    if(2 * m_size + factor >= m_capacity)
-    {
-        // For future, raise an exception
-        return;
-    }
-    std::size_t i;
-    for(i = 0; i < m_size; i++)
-    {
-        m_buffer[m_size + i + factor] = m_buffer[m_size + i];
-    }
+//template <class T>
+//void dynamic_array<T>::shift_right_by(std::size_t factor)
+//{
+//    if(2 * m_size + factor >= m_capacity)
+//    {
+//        // For future, raise an exception
+//        return;
+//    }
+//    std::size_t i;
+//    for(i = 0; i < m_size; i++)
+//    {
+//        m_buffer[m_size + i + factor] = m_buffer[m_size + i];
+//    }
+//
+//    if(i == m_size - 1)
+//    {
+//        m_size += factor;
+//    }
+//}
 
-    if(i == m_size - 1)
-    {
-        m_size += factor;
-    }
-}
-
-    template <class T>
-void dynamic_array<T>::shift_left_by(std::size_t factor)
-{
-    // Add some conditions to check @factor bounds
-    
-    for(std::size_t i = 0; i < m_size - factor + 1; i++)
-    {
-        m_buffer[i] = m_buffer[i + factor];
-    }
-
-    m_size -= factor;
-}
+//template <class T>
+//void dynamic_array<T>::shift_left_by(std::size_t factor)
+//{
+//    // Add some conditions to check @factor bounds
+//
+//    for(std::size_t i = 0; i < m_size - factor + 1; i++)
+//    {
+//        m_buffer[i] = m_buffer[i + factor];
+//    }
+//
+//    m_size -= factor;
+//}
 
 template <class T>
 void dynamic_array<T>::swap(dynamic_array& other) noexcept
