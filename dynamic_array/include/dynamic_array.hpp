@@ -124,7 +124,6 @@ template <class T>
 T dynamic_array<T>::pop_back()
 {
     T back_value = m_buffer[m_size - 1];
-    m_buffer[m_size] = T();
     --m_size;
     return back_value;
 }
