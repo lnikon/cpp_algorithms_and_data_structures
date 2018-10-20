@@ -53,7 +53,6 @@ class dynamic_array final
         std::size_t m_capacity{m_default_capacity};
         T *m_buffer{nullptr};
 
-        bool need_resize(std::size_t pos) const;
         void increase_capacity_by(std::size_t factor);
         void shift_right_by(std::size_t factor);
         void shift_left_by(std::size_t factor);
@@ -199,12 +198,6 @@ bool dynamic_array<T>::full() const
 /* 
  * Privte members listed
  */
-
-template <class T>
-bool dynamic_array<T>::need_resize(std::size_t pos) const
-{
-    return pos >= m_capacity || m_size == m_capacity;
-}
 
 template <class T>
 void dynamic_array<T>::increase_capacity_by(std::size_t factor)
